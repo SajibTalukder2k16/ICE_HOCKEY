@@ -108,7 +108,6 @@ def gameLoop():
                 if keys[K_a] :
                     last_key = 'a'
                     left2 = 5;
-                    print("KJKfjdksjfksjf")
                 elif keys[K_d]:
                     last_key = 'd'
                     right2 = 5;
@@ -130,12 +129,6 @@ def gameLoop():
                 elif keys[K_DOWN]:
                     last_key = '';
                     down = 5;
-            # if(left2!=0):
-            #     print(left2)
-        if (left2 != 0):
-            print(left2)
-        if(left!=0):
-            print("bal")
                 #elif keys[K_p]:
                     #pause()
 
@@ -148,10 +141,12 @@ def gameLoop():
         # print(down2, " ", up2, " ", paddleVelocity)
         # print(down2, " down up ", up2, " ", paddleVelocity, '\n')
         # print(left2, " left right  ", right2, " ", paddleVelocity, '\n')
+        # print(last_key)
+
+
         if(last_key=='a'):
             down2, up2, right2, left2 = 0, 0, 0, 0
             left2=5;
-
         elif(last_key=='d'):
             down2, up2, right2, left2 = 0, 0, 0, 0
             right2=5
@@ -161,29 +156,30 @@ def gameLoop():
         elif(last_key=='s'):
             down2, up2, right2, left2 = 0, 0, 0, 0
             down2=5;
-        else:
-            down2, up2, right2, left2 = 0, 0, 0, 0
+        if (last_key != 'a' or last_key != 'd' or last_key != 'w' or last_key != 's'):
+            last_key = ''
         # if(down2-up2!=0 or right2-left2!=0):
         #      print("Hello");
 
         #down2, up2, right2, left2 = 0, 0, 0, 0
         #print("Y1",paddle1.y);
         #print("X1",paddle1.x);
-        print(paddle1.y," ",(down2 - up2) * paddleVelocity)
+        # print(paddle1.y," ",(down2 - up2) * paddleVelocity)
+        # print(paddle1.x," ",(right2 - left2) * paddleVelocity)
+        # print("Before: ",paddle1.y)
         paddle1.y += (down2 - up2) * paddleVelocity
+        # print("After: ",paddle1.y)
         paddle1.x += (right2 - left2) * paddleVelocity
+
         if paddle1.y<0:
-            # print("debug1")
+            print(paddle1.y)
             paddle1.y=0
-        elif paddle1.y>screen.get_height()-  paddle1.height:
-            # print("debug2")
-            paddle1.y=screen.get_height()-  paddle1.height
+        elif paddle1.y>screen.get_height()-  paddle1.height*2:
+            paddle1.y=screen.get_height()-  paddle1.height*2
         if paddle1.x<0:
-            # print("debug3")
             paddle1.x=0
-        elif paddle1.x>screen.get_width()/2- paddle1.width:
-            # print("debug4")
-            paddle1.x= screen.get_width()/2- paddle1.width
+        elif paddle1.x>screen.get_width()/2- paddle1.width*2:
+            paddle1.x= screen.get_width()/2- paddle1.width*2
         # print(paddle1.x," ",paddle1.y);
 
 
