@@ -90,39 +90,52 @@ def message_to_screen(msg,color,y_displace=0,x_displace=0,size = "small"):
 
 
 def gameLoop():
+
     gameExit = False
     gameOver = False
     score2,score1=0,0
+    last_key='';
     while not gameExit:
 
         for event in pygame.event.get():
-            down2, up2, up, down, left2, right2, right, left = 0, 0, 0, 0, 0, 0, 0, 0
+            up, down,right, left =  0, 0, 0, 0
+            down2,up2,right2,left2 = 0, 0, 0, 0
             #print(event)
             if event.type == pygame.QUIT:
                 gameExit = True
             if event.type == pygame.KEYDOWN:
-                #print("working")
                 keys = pygame.key.get_pressed()
-                #print(keys[K_LEFT])
-                #print(keys[K_a])
-                if keys[K_LEFT]:
-                    left = 5;
-                elif keys[K_RIGHT]:
-                    right = 5;
-                elif keys[K_UP]:
-                    up = 5;
-                elif keys[K_DOWN]:
-                    down = 5;
-                if keys[K_a]:
-                    #print("Mahmud")
+                if keys[K_a] :
+                    last_key = 'a'
                     left2 = 5;
-                    print(left2);
+                    print("KJKfjdksjfksjf")
                 elif keys[K_d]:
+                    last_key = 'd'
                     right2 = 5;
                 elif keys[K_w]:
+                    last_key = 'w'
                     up2 = 5;
                 elif keys[K_s]:
+                    last_key = 's'
                     down2 = 5;
+                if keys[K_LEFT]:
+                    last_key = '';
+                    left = 5;
+                elif keys[K_RIGHT]:
+                    last_key = '';
+                    right = 5;
+                elif keys[K_UP]:
+                    last_key = '';
+                    up = 5;
+                elif keys[K_DOWN]:
+                    last_key = '';
+                    down = 5;
+            # if(left2!=0):
+            #     print(left2)
+        if (left2 != 0):
+            print(left2)
+        if(left!=0):
+            print("bal")
                 #elif keys[K_p]:
                     #pause()
 
@@ -135,31 +148,53 @@ def gameLoop():
         # print(down2, " ", up2, " ", paddleVelocity)
         # print(down2, " down up ", up2, " ", paddleVelocity, '\n')
         # print(left2, " left right  ", right2, " ", paddleVelocity, '\n')
+        if(last_key=='a'):
+            down2, up2, right2, left2 = 0, 0, 0, 0
+            left2=5;
 
+        elif(last_key=='d'):
+            down2, up2, right2, left2 = 0, 0, 0, 0
+            right2=5
+        elif(last_key=='w'):
+            down2, up2, right2, left2 = 0, 0, 0, 0
+            up2=5;
+        elif(last_key=='s'):
+            down2, up2, right2, left2 = 0, 0, 0, 0
+            down2=5;
+        else:
+            down2, up2, right2, left2 = 0, 0, 0, 0
         # if(down2-up2!=0 or right2-left2!=0):
-        #     print("Hello");
-        paddle1.y+=(down2-up2)*paddleVelocity
-        paddle1.x+=(right2-left2)*paddleVelocity
+        #      print("Hello");
+
+        #down2, up2, right2, left2 = 0, 0, 0, 0
         #print("Y1",paddle1.y);
         #print("X1",paddle1.x);
+        print(paddle1.y," ",(down2 - up2) * paddleVelocity)
+        paddle1.y += (down2 - up2) * paddleVelocity
+        paddle1.x += (right2 - left2) * paddleVelocity
         if paddle1.y<0:
-            print("debug1")
+            # print("debug1")
             paddle1.y=0
         elif paddle1.y>screen.get_height()-  paddle1.height:
-            print("debug2")
+            # print("debug2")
             paddle1.y=screen.get_height()-  paddle1.height
         if paddle1.x<0:
-            print("debug3")
+            # print("debug3")
             paddle1.x=0
         elif paddle1.x>screen.get_width()/2- paddle1.width:
-            print("debug4")
+            # print("debug4")
             paddle1.x= screen.get_width()/2- paddle1.width
+        # print(paddle1.x," ",paddle1.y);
+
 
         #Update Paddle2
         # print(down, " down up ", up, " ", paddleVelocity,'\n')
         # print(left, " left right  ", right, " ", paddleVelocity, '\n')
         paddle2.y+= (down-up)*paddleVelocity
         paddle2.x+= (right-left)*paddleVelocity
+
+        # if(down-up!=0 or right-left!=0):
+        #     print("Inside Paddle1 Moving Condition")
         # print("Y2", paddle2.y);
         # print("X2", paddle2.x);
         if paddle2.y<0:
@@ -176,7 +211,7 @@ def gameLoop():
         disc.y+=discVelocity[1]
         # if (disc.x <= disc.width and (disc.y <= screen.get_height()/2 + goalheight) and (disc.y >= screen.get_height() - goalheight)):
         if(disc.x<=goalwidth/2 and 250<=disc.y<=350):
-            print("skfjskfs")
+            # print("skfjskfs")
             score2+=1
             serveDirection=-1
             resetPuck()
