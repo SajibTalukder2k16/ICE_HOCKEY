@@ -193,7 +193,6 @@ def text_objects(text,color,size):
     return textSurface , textSurface.get_rect()
 
 def playerUpdate(down,up,right,left):
-
     # Update Paddle2
     # print(down, " down up ", up, " ", paddleVelocity,'\n')
     # print(left, " left right  ", right, " ", paddleVelocity, '\n')
@@ -245,24 +244,15 @@ def resetPuck():
     discVelocity[1]=0
 
 def ai():
-
-    # if(pygame.Rect.colliderect(disc,paddle1)):
-    #     print('yay!!!!!!!!!!!!!!!!!!!!!!!!!!')
-    #     discVelocity[0]*=-1
-    #     discVelocity[1] *= -1
-        # pygame.display.update()
-
-
-
     if (0 <= disc.x <= 400):
         # print("here")
-        target_x=disc.x- paddle1.x
-        target_y=disc.y- paddle1.y
-        if(target_x!=0 or target_y!=0):
-            valx= (target_x/(math.sqrt(pow(target_x,2)+pow(target_y,2))))*5
-            valy =(target_y/(math.sqrt(pow(target_x,2)+pow(target_y,2))))*5
-            print("XChange: ",valx)
-            print("YChange: ",valy)
+        target_x = disc.x - paddle1.x
+        target_y = disc.y - paddle1.y
+        if (target_x != 0 or target_y != 0):
+            valx = (target_x / (math.sqrt(pow(target_x, 2) + pow(target_y, 2)))) * 5
+            valy = (target_y / (math.sqrt(pow(target_x, 2) + pow(target_y, 2)))) * 5
+            print("XChange: ", valx)
+            print("YChange: ", valy)
 
             paddle1.x += valx
             paddle1.y += valy
@@ -271,12 +261,11 @@ def ai():
         target_x = init_x - paddle1.x
         target_y = init_y - paddle1.y
 
-        if(paddle1.x!=init_x and paddle2.x!=init_y):
+        if (paddle1.x != init_x and paddle2.x != init_y):
             paddle1.x += (target_x / (math.sqrt(pow(target_x, 2) + pow(target_y, 2)))) * 5
             paddle1.y += (target_y / (math.sqrt(pow(target_x, 2) + pow(target_y, 2)))) * 5
 
-
-    # print("x : ",paddle1.x," y: ",paddle1.y)
+        # print("x : ",paddle1.x," y: ",paddle1.y)
     if (hit(paddle2, disc)):
         player_hit = True
         discVelocity[0] = disc.x - paddle2.x
@@ -286,6 +275,27 @@ def ai():
         ai_hit = True
         discVelocity[0] = disc.x - paddle1.x
         discVelocity[1] = disc.y - paddle1.y
+
+    # if (0 <= disc.x <= 350):
+    #     # print("here")
+    #     target_x=disc.x- paddle1.x
+    #     target_y=disc.y- paddle1.y
+    #     if(target_x!=0 or target_y!=0):
+    #         paddle1.x += (target_x/(math.sqrt(pow(target_x,2)+pow(target_y,2))))*5
+    #         paddle1.y += (target_y/(math.sqrt(pow(target_x,2)+pow(target_y,2))))*5
+    # elif (paddle1.x==init_x and paddle1.y==init_y):
+    #     pass
+    # else:
+    #     # print("Coming back")
+    #     target_x = init_x - paddle1.x
+    #     target_y = init_y - paddle1.y
+    #
+    #     if(paddle1.x!=init_x and paddle2.x!=init_y):
+    #         paddle1.x += (target_x / (math.sqrt(pow(target_x, 2) + pow(target_y, 2)))) * 5
+    #         paddle1.y += (target_y / (math.sqrt(pow(target_x, 2) + pow(target_y, 2)))) * 5
+
+
+    # print("x : ",paddle1.x," y: ",paddle1.y)
 
 def updatePuck():
     global score1
@@ -362,9 +372,79 @@ def updatePuck():
 
 def play():
     # global down, up, right, left
-    temp_down, temp_up, temp_right, temp_left=0,0,0,0
-    global score1,score2
-    last_key=''
+    # global down, up, right, left
+    # while True:
+    #
+    #     up, down, right, left = 0, 0, 0, 0
+    #     for event in pygame.event.get():
+    #         # up, down, right, left = 0, 0, 0, 0
+    #         if event.type == pygame.QUIT:
+    #             gameExit = True
+    #         if event.type == pygame.KEYDOWN:
+    #             keys = pygame.key.get_pressed()
+    #
+    #             if keys[K_LEFT]:
+    #                 left = 5;
+    #
+    #             elif keys[K_RIGHT]:
+    #                 right = 5;
+    #                 # print("Pressed right")
+    #             elif keys[K_UP]:
+    #                 up = 5;
+    #                 # print("Pressed up")
+    #             elif keys[K_DOWN]:
+    #                 down = 5;
+    #                 # print("Pressed down")
+    #         if event.type == pygame.MOUSEBUTTONDOWN:
+    #             if event.type==pygame.QUIT:
+    #                 pygame.quit()
+    #                 sys.exit()
+    #
+    #
+    #     # player update
+    #     playerUpdate(down, up, right, left)
+    #
+    #     # ai
+    #     ai()
+    #
+    #     updatePuck()
+    #
+    #     screen.fill(black)
+    #     message_to_screen("Player 1", white, -250, -150, "small")
+    #     message_to_screen(str(score1), white, -200, -150, "small")
+    #     message_to_screen("Player 2", white, -250, 150, "small")
+    #     message_to_screen(str(score2), white, -200, 150, "small")
+    #     # pygame.draw.rect(screen, (255, 100, 100), paddle1)
+    #     # pygame.draw.rect(screen, (20, 20, 100), paddle2)
+    #
+    #     # screen.blit(img,(disc.x,disc.y))
+    #
+    #     screen.blit(img, (disc.x, disc.y))
+    #     screen.blit(bluepadimg, (paddle1.x - 5, paddle1.y - 5))
+    #     screen.blit(redpadimg, (paddle2.x - 5, paddle2.y - 5))
+    #
+    #     # boundaries and center line
+    #     pygame.draw.rect(screen, light_blue, goal1)
+    #     pygame.draw.rect(screen, light_blue, goal2)
+    #
+    #     pygame.draw.circle(screen, white, (screen.get_width() / 2, screen.get_height() / 2), screen.get_width() / 10, 5)
+    #     pygame.draw.line(screen, white, divline1, divline2, 5)
+    #     pygame.draw.line(screen, blue, (0, 0), (screen.get_width() / 2 - 5, 0), 5)
+    #     pygame.draw.line(screen, blue, (0, screen.get_height()), (screen.get_width() / 2 - 5, screen.get_height()), 5)
+    #     pygame.draw.line(screen, red, (screen.get_width() / 2 + 5, 0), (screen.get_width(), 0), 5)
+    #     pygame.draw.line(screen, red, (screen.get_width() / 2 + 5, screen.get_height()),
+    #                      (screen.get_width(), screen.get_height()), 5)
+    #     pygame.draw.line(screen, blue, (0, 0), (0, screen.get_height() / 2 - goalheight), 5)
+    #     pygame.draw.line(screen, blue, (0, screen.get_height() / 2 + goalheight), (0, screen.get_height()), 5)
+    #     pygame.draw.line(screen, red, (screen.get_width(), 0), (screen.get_width(), screen.get_height() / 2 - goalheight),
+    #                      5)
+    #     pygame.draw.line(screen, red, (screen.get_width(), screen.get_height() / 2 + goalheight),
+    #                      (screen.get_width(), screen.get_height()), 5)
+    #     pygame.display.update()
+    #     clock.tick(50)
+    temp_down, temp_up, temp_right, temp_left = 0, 0, 0, 0
+    global score1, score2
+    last_key = ''
     while True:
 
         # up, down, right, left = 0, 0, 0, 0
@@ -372,51 +452,54 @@ def play():
             up, down, right, left = 0, 0, 0, 0
             update = False;
             if event.type == pygame.QUIT:
-                score1=0
-                score2=0
-                gameExit = True
+                score1 = 0
+                score2 = 0
                 resetPuck()
+                gameExit = True
+                paddle1.x = screen.get_width() / 2 - 200
+                paddle1.y = screen.get_height() / 2
+                paddle2.x = screen.get_width() / 2 + 200
+                paddle2.y = screen.get_height() / 2
                 return 0;
             if event.type == pygame.KEYDOWN:
                 keys = pygame.key.get_pressed()
                 if keys[K_LEFT]:
                     left = 5;
-                    update=True;
-                    last_key='left'
+                    update = True;
+                    last_key = 'left'
                 elif keys[K_RIGHT]:
                     right = 5;
-                    update=True
-                    last_key='right'
+                    update = True
+                    last_key = 'right'
                     # print("Pressed right")
                 elif keys[K_UP]:
                     up = 5;
-                    update=True
-                    last_key='up'
+                    update = True
+                    last_key = 'up'
                     # print("Pressed up")
                 elif keys[K_DOWN]:
                     down = 5;
-                    update=True;
-                    last_key='down'
+                    update = True;
+                    last_key = 'down'
 
                     # print("Pressed down")
-            if(update==False):
-                last_key=''
-
+            if (update == False):
+                last_key = ''
 
         # print("LAST ",last_key,temp_up,temp_down,temp_left,temp_right)
         if (last_key == 'left'):
-            temp_down, temp_up, temp_right, temp_left=0,0,0,0
+            temp_down, temp_up, temp_right, temp_left = 0, 0, 0, 0
             temp_left = 5;
         elif (last_key == 'right'):
-            temp_down, temp_up, temp_right, temp_left=0,0,0,0
+            temp_down, temp_up, temp_right, temp_left = 0, 0, 0, 0
             temp_right = 5
         elif (last_key == 'up'):
-            temp_down, temp_up, temp_right, temp_left=0,0,0,0
+            temp_down, temp_up, temp_right, temp_left = 0, 0, 0, 0
             temp_up = 5;
         elif (last_key == 'down'):
-            temp_down, temp_up, temp_right, temp_left=0,0,0,0
+            temp_down, temp_up, temp_right, temp_left = 0, 0, 0, 0
             temp_down = 5;
-        elif(last_key==''):
+        elif (last_key == ''):
             temp_down, temp_up, temp_right, temp_left = 0, 0, 0, 0
         # player update
         playerUpdate(temp_down, temp_up, temp_right, temp_left)
@@ -453,6 +536,84 @@ def play():
                          (screen.get_width(), screen.get_height()), 5)
         pygame.draw.line(screen, blue, (0, 0), (0, screen.get_height() / 2 - goalheight), 5)
         pygame.draw.line(screen, blue, (0, screen.get_height() / 2 + goalheight), (0, screen.get_height()), 5)
+        pygame.draw.line(screen, red, (screen.get_width(), 0),
+                         (screen.get_width(), screen.get_height() / 2 - goalheight),
+                         5)
+        pygame.draw.line(screen, red, (screen.get_width(), screen.get_height() / 2 + goalheight),
+                         (screen.get_width(), screen.get_height()), 5)
+        pygame.display.update()
+        clock.tick(50)
+def playHard():
+    # global down, up, right, left
+    global down, up, right, left
+    while True:
+
+        up, down, right, left = 0, 0, 0, 0
+        for event in pygame.event.get():
+            # up, down, right, left = 0, 0, 0, 0
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.type==pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+            if event.type == pygame.QUIT:
+                gameExit = True
+                return 0;
+            if event.type == pygame.KEYDOWN:
+                keys = pygame.key.get_pressed()
+
+                if keys[K_LEFT]:
+                    left = 5;
+
+                elif keys[K_RIGHT]:
+                    right = 5;
+                    # print("Pressed right")
+                elif keys[K_UP]:
+                    up = 5;
+                    # print("Pressed up")
+                elif keys[K_DOWN]:
+                    down = 5;
+                    # print("Pressed down")
+
+
+
+        # player update
+        playerUpdate(down, up, right, left)
+
+        # ai
+        ai()
+
+        updatePuck()
+
+        screen.fill(black)
+        message_to_screen("Player 1", white, -250, -150, "small")
+        message_to_screen(str(score1), white, -200, -150, "small")
+        message_to_screen("Player 2", white, -250, 150, "small")
+        message_to_screen(str(score2), white, -200, 150, "small")
+        # pygame.draw.rect(screen, (255, 100, 100), paddle1)
+        # pygame.draw.rect(screen, (20, 20, 100), paddle2)
+
+        # screen.blit(img,(disc.x,disc.y))
+
+        screen.blit(img, (disc.x, disc.y))
+        screen.blit(bluepadimg, (paddle1.x - 5, paddle1.y - 5))
+        screen.blit(redpadimg, (paddle2.x - 5, paddle2.y - 5))
+
+        # obstacles
+
+
+        # boundaries and center line
+        pygame.draw.rect(screen, light_blue, goal1)
+        pygame.draw.rect(screen, light_blue, goal2)
+
+        pygame.draw.circle(screen, white, (screen.get_width() / 2, screen.get_height() / 2), screen.get_width() / 10, 5)
+        pygame.draw.line(screen, white, divline1, divline2, 5)
+        pygame.draw.line(screen, blue, (0, 0), (screen.get_width() / 2 - 5, 0), 5)
+        pygame.draw.line(screen, blue, (0, screen.get_height()), (screen.get_width() / 2 - 5, screen.get_height()), 5)
+        pygame.draw.line(screen, red, (screen.get_width() / 2 + 5, 0), (screen.get_width(), 0), 5)
+        pygame.draw.line(screen, red, (screen.get_width() / 2 + 5, screen.get_height()),
+                         (screen.get_width(), screen.get_height()), 5)
+        pygame.draw.line(screen, blue, (0, 0), (0, screen.get_height() / 2 - goalheight), 5)
+        pygame.draw.line(screen, blue, (0, screen.get_height() / 2 + goalheight), (0, screen.get_height()), 5)
         pygame.draw.line(screen, red, (screen.get_width(), 0), (screen.get_width(), screen.get_height() / 2 - goalheight),
                          5)
         pygame.draw.line(screen, red, (screen.get_width(), screen.get_height() / 2 + goalheight),
@@ -463,10 +624,232 @@ def play():
 def get_font(size):  # Returns Press-Start-2P in the desired size
     return pygame.font.Font("assets/font.ttf", size)
 
+def TwoPlayer():
+    while True:
+        gameExit = False
+        gameOver = False
+        score2, score1 = 0, 0
+        last_key = '';
+        while not gameExit:
+            down2, up2, right2, left2 = 0, 0, 0, 0
+            up, down, right, left = 0, 0, 0, 0
+            for event in pygame.event.get():
+                # up, down, right, left = 0, 0, 0, 0
+
+                # print(event)
+                if event.type == pygame.QUIT:
+                    score1 = 0
+                    score2 = 0
+                    resetPuck()
+                    gameExit = True
+                    paddle1.x = screen.get_width() / 2 - 200
+                    paddle1.y = screen.get_height() / 2
+                    paddle2.x = screen.get_width() / 2 + 200
+                    paddle2.y = screen.get_height() / 2
+                    return 0;
+                if event.type == pygame.KEYDOWN:
+                    keys = pygame.key.get_pressed()
+                    if keys[K_a]:
+                        last_key = 'a'
+                        left2 = 5;
+                    elif keys[K_d]:
+                        last_key = 'd'
+                        right2 = 5;
+                    elif keys[K_w]:
+                        last_key = 'w'
+                        up2 = 5;
+                    elif keys[K_s]:
+                        last_key = 's'
+                        down2 = 5;
+                    if keys[K_LEFT]:
+                        last_key = '';
+                        left = 5;
+                    elif keys[K_RIGHT]:
+                        last_key = '';
+                        right = 5;
+                    elif keys[K_UP]:
+                        last_key = '';
+                        up = 5;
+                    elif keys[K_DOWN]:
+                        last_key = '';
+                        down = 5;
+                    # elif keys[K_p]:
+                    # pause()
+
+
+
+            if (last_key == 'a'):
+                down2, up2, right2, left2 = 0, 0, 0, 0
+                left2 = 5;
+            elif (last_key == 'd'):
+                down2, up2, right2, left2 = 0, 0, 0, 0
+                right2 = 5
+            elif (last_key == 'w'):
+                down2, up2, right2, left2 = 0, 0, 0, 0
+                up2 = 5;
+            elif (last_key == 's'):
+                down2, up2, right2, left2 = 0, 0, 0, 0
+                down2 = 5;
+            if (last_key != 'a' or last_key != 'd' or last_key != 'w' or last_key != 's'):
+                last_key = ''
+            # if(down2-up2!=0 or right2-left2!=0):
+            #      print("Hello");
+
+            # down2, up2, right2, left2 = 0, 0, 0, 0
+            # print("Y1",paddle1.y);
+            # print("X1",paddle1.x);
+            # print(paddle1.y," ",(down2 - up2) * paddleVelocity)
+            # print(paddle1.x," ",(right2 - left2) * paddleVelocity)
+            # print("Before: ",paddle1.y)
+            paddle1.y += (down2 - up2) * paddleVelocity
+            # print("After: ",paddle1.y)
+            paddle1.x += (right2 - left2) * paddleVelocity
+
+            if paddle1.y < 0:
+                print(paddle1.y)
+                paddle1.y = 0
+            elif paddle1.y > screen.get_height() - paddle1.height * 2:
+                paddle1.y = screen.get_height() - paddle1.height * 2
+            if paddle1.x < 0:
+                paddle1.x = 0
+            elif paddle1.x > screen.get_width() / 2 - paddle1.width * 2:
+                paddle1.x = screen.get_width() / 2 - paddle1.width * 2
+            # print(paddle1.x," ",paddle1.y);
+
+            # Update Paddle2
+            # print(down, " down up ", up, " ", paddleVelocity,'\n')
+            # print(left, " left right  ", right, " ", paddleVelocity, '\n')
+            paddle2.y += (down - up) * paddleVelocity
+            paddle2.x += (right - left) * paddleVelocity
+
+            # if(down-up!=0 or right-left!=0):
+            #     print("Inside Paddle1 Moving Condition")
+            # print("Y2", paddle2.y);
+            # print("X2", paddle2.x);
+            if paddle2.y < 0:
+                paddle2.y = 0
+            elif paddle2.y > screen.get_height() - paddle2.height:
+                paddle2.y = screen.get_height() - paddle2.height
+            if paddle2.x > screen.get_width() - paddle1.width:
+                paddle2.x = screen.get_width() - paddle1.width
+            elif paddle2.x < screen.get_width() / 2:
+                paddle2.x = screen.get_width() / 2
+
+            # Update Puck
+            # disc.x += discVelocity[0]
+            # disc.y += discVelocity[1]
+            # # if (disc.x <= disc.width and (disc.y <= screen.get_height()/2 + goalheight) and (disc.y >= screen.get_height() - goalheight)):
+            # if (disc.x <= goalwidth / 2 and 250 <= disc.y <= 350):
+            #     # print("skfjskfs")
+            #     score2 += 1
+            #     serveDirection = -1
+            #     resetPuck()
+            # elif (disc.x >= screen.get_width() - goalwidth - disc.width) and (
+            #         disc.y <= screen.get_height() / 2 + goalheight) and (
+            #         disc.y >= screen.get_height() / 2 - goalheight):
+            #     score1 += 1
+            #     serveDirection = 1
+            #     resetPuck()
+            # elif disc.x - 10 < 0 or disc.x + 25 > screen.get_width():
+            #     discVelocity[0] *= -1;
+            #
+            # if disc.y - 10 < 0 or disc.y + 10 > screen.get_height() - disc.height:
+            #     discVelocity[1] *= -1
+            # if disc.colliderect(paddle1) or disc.colliderect(paddle2):
+            #     discVelocity[0] *= -1
+            updatePuck()
+
+            # Render Logic
+            screen.fill(black)
+            message_to_screen("Player 1", white, -250, -150, "small")
+            message_to_screen(str(score1), white, -200, -150, "small")
+            message_to_screen("Player 2", white, -250, 150, "small")
+            message_to_screen(str(score2), white, -200, 150, "small")
+            # pygame.draw.rect(screen, (255, 100, 100), paddle1)
+            # pygame.draw.rect(screen, (20, 20, 100), paddle2)
+
+            # screen.blit(img,(disc.x,disc.y))
+
+            screen.blit(img, (disc.x, disc.y))
+            screen.blit(bluepadimg, (paddle1.x - 5, paddle1.y - 5))
+            screen.blit(redpadimg, (paddle2.x - 5, paddle2.y - 5))
+
+            # obstacles
+
+            # boundaries and center line
+            pygame.draw.rect(screen, light_blue, goal1)
+            pygame.draw.rect(screen, light_blue, goal2)
+
+            pygame.draw.circle(screen, white, (screen.get_width() / 2, screen.get_height() / 2),
+                               screen.get_width() / 10, 5)
+            pygame.draw.line(screen, white, divline1, divline2, 5)
+            pygame.draw.line(screen, blue, (0, 0), (screen.get_width() / 2 - 5, 0), 5)
+            pygame.draw.line(screen, blue, (0, screen.get_height()), (screen.get_width() / 2 - 5, screen.get_height()),
+                             5)
+            pygame.draw.line(screen, red, (screen.get_width() / 2 + 5, 0), (screen.get_width(), 0), 5)
+            pygame.draw.line(screen, red, (screen.get_width() / 2 + 5, screen.get_height()),
+                             (screen.get_width(), screen.get_height()), 5)
+            pygame.draw.line(screen, blue, (0, 0), (0, screen.get_height() / 2 - goalheight), 5)
+            pygame.draw.line(screen, blue, (0, screen.get_height() / 2 + goalheight), (0, screen.get_height()), 5)
+            pygame.draw.line(screen, red, (screen.get_width(), 0),
+                             (screen.get_width(), screen.get_height() / 2 - goalheight),
+                             5)
+            pygame.draw.line(screen, red, (screen.get_width(), screen.get_height() / 2 + goalheight),
+                             (screen.get_width(), screen.get_height()), 5)
+            pygame.display.update()
+            clock.tick(50)
+
+
+def OnePlayerMenu():
+    while True:
+        EASY_POS = pygame.mouse.get_pos()
+        HARD_POS = pygame.mouse.get_pos()
+        OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
+
+        screen.fill("white")
+
+        OPTIONS_TEXT = get_font(45).render("SET DIFFICULTY", True, "Black")
+        OPTIONS_RECT = OPTIONS_TEXT.get_rect(center=(400, 100))
+        screen.blit(OPTIONS_TEXT, OPTIONS_RECT)
+
+        HARD_PLAY_OPTION = Button(image=None, pos=(400, 250),
+                            text_input="HARD", font=get_font(50), base_color="Black", hovering_color="Green")
+
+        EASY_PLAY_OPTION = Button(image=None, pos=(400,350),
+                                 text_input="EASY",font=get_font(50),base_color="Black",hovering_color="Green")
+
+        OPTIONS_BACK = Button(image=None, pos=(400, 450),
+                              text_input="BACK", font=get_font(50), base_color="Black", hovering_color="Green")
+
+        HARD_PLAY_OPTION.changeColor(HARD_POS)
+        HARD_PLAY_OPTION.update(screen)
+        EASY_PLAY_OPTION.changeColor(EASY_POS)
+        EASY_PLAY_OPTION.update(screen)
+        OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
+        OPTIONS_BACK.update(screen)
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if HARD_PLAY_OPTION.checkForInput(HARD_POS):
+                    playHard()
+
+                if EASY_PLAY_OPTION.checkForInput(EASY_POS):
+                    play()
+
+                if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
+                    return  0
+
+        pygame.display.update()
+
 def options():
     while True:
         OPTIONS_MOUSE_POS = pygame.mouse.get_pos()
         ONE_PLAYER_POS=pygame.mouse.get_pos()
+        HARD_PLAY_POS=pygame.mouse.get_pos()
+        EASY_PLAY_POS=pygame.mouse.get_pos()
 
         screen.fill("white")
 
@@ -476,13 +859,19 @@ def options():
 
         ONE_PLAYER= Button(image=None, pos=(400,250),
                           text_input="1 player",font=get_font(50),base_color="Black", hovering_color="Green")
-        OPTIONS_BACK = Button(image=None, pos=(400, 350),
+        HARD_PLAY = Button(image=None, pos=(400,350),
+                           text_input="2 player", font=get_font(50), base_color="Black", hovering_color="Green")
+        OPTIONS_BACK = Button(image=None, pos=(400, 450),
                               text_input="BACK", font=get_font(50), base_color="Black", hovering_color="Green")
+
 
         ONE_PLAYER.changeColor(ONE_PLAYER_POS)
         ONE_PLAYER.update(screen)
         OPTIONS_BACK.changeColor(OPTIONS_MOUSE_POS)
         OPTIONS_BACK.update(screen)
+        HARD_PLAY.changeColor(HARD_PLAY_POS)
+        HARD_PLAY.update(screen)
+
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -491,6 +880,16 @@ def options():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if OPTIONS_BACK.checkForInput(OPTIONS_MOUSE_POS):
                     gameLoop()
+
+                if ONE_PLAYER.checkForInput(ONE_PLAYER_POS):
+                    OnePlayerMenu()
+
+                if HARD_PLAY.checkForInput(HARD_PLAY_POS):
+                    TwoPlayer()
+
+
+
+
 
         pygame.display.update()
 
@@ -607,7 +1006,6 @@ def gameLoop():
 
 
 gameLoop()
-
 
 
 
