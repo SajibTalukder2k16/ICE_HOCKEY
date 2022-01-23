@@ -57,7 +57,7 @@ screen= pygame.display.set_mode((800,600))
 divline1 = screen.get_width()/2, 0
 divline2 = screen.get_width()/2 ,screen.get_height()
 #Caption
-pygame.display.set_caption('Air Hockey!')
+pygame.display.set_caption('ICE HOCKEY!')
 #Font Sizes
 smallfont = pygame.font.SysFont("comicsansms" , 25)
 medfont = pygame.font.SysFont("comicsansms" , 45)
@@ -69,8 +69,8 @@ goalwidth = 20
 goal1 = pygame.Rect(0,screen.get_height()/2 - 50,10,100)
 goal2 = pygame.Rect(screen.get_width()-10,screen.get_height()/2 - goalheight,10,100)
 
-paddle1= pygame.draw.circle(screen,(0,0,0),(screen.get_width()/2-200,screen.get_height()/2),20)
-paddle2= pygame.draw.circle(screen,(0,0,0),(screen.get_width()/2+200,screen.get_height()/2),20)
+paddle1= pygame.draw.circle(screen,(0,0,0),(screen.get_width()/2-300,screen.get_height()/2),20)
+paddle2= pygame.draw.circle(screen,(0,0,0),(screen.get_width()/2+300,screen.get_height()/2),20)
 
 paddleVelocity= 4
 
@@ -158,18 +158,26 @@ def resetPuck():
     discVelocity[1]=0
     paddle1.x = screen.get_width() / 2 - 300
     paddle1.y = screen.get_height() / 2
-    paddle2.x = screen.get_width() / 2 + 200
+    paddle2.x = screen.get_width() / 2 + 280
     paddle2.y = screen.get_height() / 2
 previous_x=-1
 previous_y=-1
 def ai():
     global previous_x
+    global previous_y
     print(disc.x,disc.y)
     if(previous_x==disc.x):
-        paddle1.x+=2;
+        paddle1.x+=1;
+    if (previous_y == disc.y):
+        paddle1.x+= 1;
     if (previous_x == disc.x):
-        paddle1.y -= 2;
+        paddle1.y -= 1;
+
+    if(previous_y==disc.y):
+        paddle1.x-=1;
+
     previous_x=disc.x
+    previous_y=disc.y
     if (0 <= disc.x <= 400):
         # print("here")
         target_x = disc.x - paddle1.x
@@ -262,12 +270,20 @@ def updatePuck():
     #     # paddle2_hit=False
     #     # player_hit=False
 
-    if(disc.x<-10 or disc.x>screen.get_width()+10):
-        disc.x=screen.get_width()/2;
-        disc.y=screen.get_height()/2;
-    if(disc.y<-10 or disc.y>screen.get_height()+10):
-        disc.x = screen.get_width() / 2;
-        disc.y = screen.get_height() / 2;
+    if(disc.x<-5 ):
+        disc.x+=10;
+    if(disc.x>screen.get_width()+5):
+        disc.x-=10;
+
+        # disc.x=screen.get_width()/2;
+        # disc.y=screen.get_height()/2;
+    if(disc.y<-5):
+        disc.y+=10;
+    if(disc.y>screen.get_height()+5):
+        disc.y-=10;
+        # or disc.y>screen.get_height()+5):
+        # disc.x = screen.get_width() / 2;
+        # disc.y = screen.get_height() / 2;
     disc.x+=discVelocity[0]
     disc.y+=discVelocity[1]
     # if (disc.x <= disc.width and (disc.y <= screen.get_height()/2 + goalheight) and (disc.y >= screen.get_height() - goalheight)):
@@ -915,68 +931,6 @@ def gameLoop():
                     sys.exit()
 
         pygame.display.update()
-
-
-        # for event in pygame.event.get():
-        #     up, down, right, left = 0, 0, 0, 0
-        #     if event.type == pygame.QUIT:
-        #         gameExit = True
-        #     if event.type == pygame.KEYDOWN:
-        #         keys = pygame.key.get_pressed()
-        #
-        #         if keys[K_LEFT]:
-        #             left = 5;
-        #
-        #         elif keys[K_RIGHT]:
-        #             right = 5;
-        #             # print("Pressed right")
-        #         elif keys[K_UP]:
-        #             up = 5;
-        #             # print("Pressed up")
-        #         elif keys[K_DOWN]:
-        #             down = 5;
-        #             # print("Pressed down")
-        #
-        #
-        # # player update
-        # playerUpdate(down, up, right, left)
-        #
-        # # ai
-        # ai()
-        #
-        # updatePuck()
-        #
-        # screen.fill(black)
-        # message_to_screen("Player 1", white, -250, -150, "small")
-        # message_to_screen(str(score1), white, -200, -150, "small")
-        # message_to_screen("Player 2", white, -250, 150, "small")
-        # message_to_screen(str(score2), white, -200, 150, "small")
-        # # pygame.draw.rect(screen, (255, 100, 100), paddle1)
-        # # pygame.draw.rect(screen, (20, 20, 100), paddle2)
-        #
-        # # screen.blit(img,(disc.x,disc.y))
-        #
-        #
-        # screen.blit(img, (disc.x, disc.y))
-        # screen.blit(bluepadimg, (paddle1.x - 5, paddle1.y - 5))
-        # screen.blit(redpadimg, (paddle2.x - 5, paddle2.y - 5))
-        #
-        # # boundaries and center line
-        # pygame.draw.rect(screen, light_blue, goal1)
-        # pygame.draw.rect(screen, light_blue, goal2)
-        #
-        # pygame.draw.circle(screen, white, (screen.get_width() / 2, screen.get_height() / 2), screen.get_width() / 10, 5)
-        # pygame.draw.line(screen, white, divline1, divline2, 5)
-        # pygame.draw.line(screen, blue, (0, 0), (screen.get_width() / 2 - 5, 0), 5)
-        # pygame.draw.line(screen, blue, (0, screen.get_height()), (screen.get_width() / 2 - 5, screen.get_height()), 5)
-        # pygame.draw.line(screen, red, (screen.get_width() / 2 + 5, 0), (screen.get_width(), 0), 5)
-        # pygame.draw.line(screen, red, (screen.get_width() / 2 + 5, screen.get_height()),(screen.get_width(), screen.get_height()), 5)
-        # pygame.draw.line(screen, blue, (0, 0), (0, screen.get_height() / 2 - goalheight), 5)
-        # pygame.draw.line(screen, blue, (0, screen.get_height() / 2 + goalheight), (0, screen.get_height()), 5)
-        # pygame.draw.line(screen, red, (screen.get_width(), 0), (screen.get_width(), screen.get_height() / 2 - goalheight),5)
-        # pygame.draw.line(screen, red, (screen.get_width(), screen.get_height() / 2 + goalheight),(screen.get_width(), screen.get_height()), 5)
-        # pygame.display.update()
-        # clock.tick(50)
 
 
 gameLoop()
